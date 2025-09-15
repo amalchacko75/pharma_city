@@ -1,0 +1,19 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "Good morning"],
+      "responses": ["Hello! How can I assist you today?"]
+    },
+    {
+      "tag": "appointment",
+      "patterns": ["I want to book an appointment", "Schedule a visit", "Doctor appointment"],
+      "responses": ["Sure, I can help you book an appointment. Which doctor do you want to see?"]
+    },
+    {
+      "tag": "billing",
+      "patterns": ["What is my bill?", "Show invoice", "How much do I owe?"],
+      "responses": ["Please provide your patient ID to fetch the billing details."]
+    }
+  ]
+}
