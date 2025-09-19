@@ -3,7 +3,7 @@ import pickle
 import json
 
 from chatbot.registry import INTENT_REGISTRY
-import chatbot.handlers
+import chatbot.handlers  # noqa: F401
 
 # Load trained model
 model = pickle.load(open("chatbot/ml/model.pkl", "rb"))

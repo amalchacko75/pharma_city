@@ -21,7 +21,10 @@ def check_drug_availability(user_input: str):
     # Try to extract the drug name by looking for known drug matches
     for drug in Drug.objects.all():
         if drug.name.lower() in normalized:
-            return f"✅ Yes, {drug.name} is available at {drug.unit_price} per unit."
+            return (
+                f"✅ Yes, {drug.name} \
+                    is available at {drug.unit_price} per unit."
+            )
 
     return "❌ Sorry, that drug is not currently available in our store."
 
@@ -44,7 +47,10 @@ def suggest_drug_for_symptom(user_input: str):
 
     # Select best-scoring match (or ties within 5 points)
     best_score = max(score for _, score in matches)
-    chosen_types = {drug_type for drug_type, score in matches if best_score - score <= 5}
+    chosen_types = {
+        drug_type for drug_type, 
+        score in matches if best_score - score <= 5
+    }
 
     responses = []
     for drug_type in chosen_types:
@@ -56,10 +62,15 @@ def suggest_drug_for_symptom(user_input: str):
 
         drug_statuses = []
         for d in drugs:
-            status = "✅ Available" if getattr(d, "in_stock", True) else "❌ Out of stock"
+            status = (
+                "✅ Available" if getattr(d, "in_stock", True) else
+                "❌ Out of stock"
+            )
             drug_statuses.append(f"{d.name} ({status})")
 
-        responses.append(f"💊 {drug_type.title()} drugs: " + " | ".join(drug_statuses))
+        responses.append(
+            f"💊 {drug_type.title()} drugs: " + " | ".join(drug_statuses)
+        )
 
     return " || ".join(responses)
 
