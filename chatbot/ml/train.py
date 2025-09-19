@@ -24,6 +24,7 @@ for intent in data["intents"]:
     if intent["tag"] not in classes:
         classes.append(intent["tag"])
 
+
 vectorizer = CountVectorizer()
 X = vectorizer.fit_transform(sentences)
 y = labels

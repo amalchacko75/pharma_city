@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 
-from pharmacy.constant import PRESCRIPTION_STATUS_CHOICES
+from pharmacy.constant import DRUG_TYPE, PRESCRIPTION_STATUS_CHOICES
 
 
 class Drug(models.Model):
@@ -27,6 +27,10 @@ class Drug(models.Model):
         max_digits=12, decimal_places=2, default=0
     )
     reorder_level = models.IntegerField(default=0)
+    drug_type = models.CharField(
+        max_length=32, choices=DRUG_TYPE, default='pain'
+    )
+    in_stock = models.BooleanField(default=True)
 
 
 class InventoryBatch(models.Model):

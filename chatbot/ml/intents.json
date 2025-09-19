@@ -2,7 +2,10 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": ["Hi", "Hello", "Hey", "Good morning"],
+      "patterns": [
+        "Hi", "Hello", "Hey", "hey",
+        "Good morning", "hii", "GM", "helloo"
+      ],
       "responses": ["Hello! How can I assist you today?"]
     },
     {
@@ -14,6 +17,60 @@
       "tag": "billing",
       "patterns": ["What is my bill?", "Show invoice", "How much do I owe?"],
       "responses": ["Please provide your patient ID to fetch the billing details."]
+    },
+    {
+      "tag": "pharmacy_info",
+      "patterns": [
+        "Where is the nearest pharmacy?",
+        "Pharmacy near me",
+        "Pharmacy contact number"
+      ],
+      "responses": ["Can I provide the nearest pharmacy details?"]
+    },
+    {
+      "tag": "drug_info",
+      "patterns": [
+        "What drugs are available?",
+        "Show me available medicines",
+        "Do you have paracetamol?",
+        "List the drugs"
+      ],
+      "responses": ["Checking available drugs for you..."]
+    },
+    {
+      "tag": "drug_query",
+      "patterns": [
+        "Do you have paracetamol?",
+        "Is ibuprofen available?",
+        "Can I buy azithromycin?",
+        "Do you sell aspirin?",
+        "Is metformin in stock?"
+      ],
+      "responses": ["Let me check if that drug is available..."]
+    },
+    {
+      "tag": "symptom_query",
+      "patterns": [
+        "I have a headache",
+        "I feel body pain",
+        "My stomach hurts",
+        "I am feeling fever",
+        "What should I take for cold?"
+      ],
+      "responses": ["Let me suggest some medicines for your symptoms..."]
+    },
+    {
+      "tag": "drug_usage",
+      "patterns": [
+        "What the usage of paracetamol",
+        "what is ibuprofen",
+        "Can I use azithromycin?",
+        "is aspirin good?",
+        "when i use metformin?"
+      ],
+      "responses": ["Let me check if that drug is available..."]
     }
+
+
   ]
 }
