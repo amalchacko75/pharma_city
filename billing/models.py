@@ -1,6 +1,5 @@
 from django.db import models
 import uuid
-
 from accounts.mixins import AuditMixin
 from billing.constant import PAYMENT_METHOD_CHOICES, PAYMENT_STATUS_CHOICES
 
@@ -22,7 +21,6 @@ class Invoice(AuditMixin):
         max_length=20, choices=PAYMENT_STATUS_CHOICES,
         default="unpaid"
     )
-
 
 class Payment(AuditMixin):
     id = models.UUIDField(

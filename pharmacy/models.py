@@ -1,6 +1,5 @@
 from django.db import models
 import uuid
-
 from pharmacy.constant import DRUG_TYPE, PRESCRIPTION_STATUS_CHOICES
 
 

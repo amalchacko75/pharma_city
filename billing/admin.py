@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from billing.models import Invoice, Payment
 
 admin.site.register(Invoice)

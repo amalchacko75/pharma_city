@@ -8,7 +8,6 @@ from accounts.mixins import AuditMixin
 
 class AdminUser(AuditMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=30, null=True, blank=True)
     role = models.CharField(max_length=32, choices=ADMIN_ROLE_CHOICES)
     facility = models.ForeignKey(
         "core.Facility", null=True,
