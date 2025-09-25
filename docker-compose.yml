@@ -37,6 +37,13 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+  
+  redis:
+    image: redis:7
+    container_name: pharmacy_redis
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:

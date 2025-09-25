@@ -1,7 +1,7 @@
 from chatbot.constant import SYMPTOM_TO_TYPE
 from chatbot.registry import register_intent
 from pharmacy.models import Drug
-from rapidfuzz import process
+from rapidfuzz import process  # commonly used to match string contents.
 
 
 @register_intent("drug_info")
@@ -86,4 +86,3 @@ def check_drug_usage(user_input: str):
             return f" {drug.name} is commonly used for {drug.formulation}"
 
     return "❌ Sorry, that drug is not currently available in our store."
-

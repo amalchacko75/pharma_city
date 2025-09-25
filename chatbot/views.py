@@ -10,5 +10,5 @@ def chatbot_api(request):
         data = json.loads(request.body)
         user_message = data.get("message", "")
         response = get_response(user_message)
-        return JsonResponse({"response": response})
+        return JsonResponse({"response_data": response})
     return JsonResponse({"error": "POST request required"}, status=400)

@@ -11,12 +11,22 @@
     {
       "tag": "appointment",
       "patterns": ["I want to book an appointment", "Schedule a visit", "Doctor appointment"],
-      "responses": ["Sure, I can help you book an appointment. Which doctor do you want to see?"]
+      "responses": ["Sure, I can help you book an appointment. Which doctor do you want to see?"],
+      "suggestions": [
+        "View doctor availability",
+        "Cancel appointment",
+        "Reschedule appointment"
+      ]
     },
     {
       "tag": "billing",
       "patterns": ["What is my bill?", "Show invoice", "How much do I owe?"],
-      "responses": ["Please provide your patient ID to fetch the billing details."]
+      "responses": ["Please provide your patient ID to fetch the billing details."],
+      "suggestions": [
+        "Pay bill online",
+        "Get invoice copy",
+        "Billing help"
+      ]
     },
     {
       "tag": "pharmacy_info",
@@ -25,7 +35,12 @@
         "Pharmacy near me",
         "Pharmacy contact number"
       ],
-      "responses": ["Can I provide the nearest pharmacy details?"]
+      "responses": ["Can I provide the nearest pharmacy details?"],
+      "suggestions": [
+        "Check nearby pharmacy",
+        "Show drug availability",
+        "Talk to a doctor"
+      ]
     },
     {
       "tag": "drug_info",
