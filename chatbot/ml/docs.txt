@@ -1,0 +1,46 @@
+         User Input
+            │
+            ▼
+   "Pharmacy near me"
+            │
+            ▼
+ ┌──────────────────────────┐
+ │  vectorizer.pkl          │
+ │ (CountVectorizer)        │
+ │ Converts text → numbers  │
+ └──────────────────────────┘
+            │
+            ▼
+   [0, 0, 1, 0, 2, ...]   ← bag-of-words vector
+            │
+            ▼
+ ┌──────────────────────────┐
+ │   model.pkl              │
+ │ (MultinomialNB)          │
+ │ Predicts intent tag      │
+ └──────────────────────────┘
+            │
+            ▼
+   "pharmacy"   ← predicted intent
+            │
+            ▼
+ ┌──────────────────────────┐
+ │   classes.pkl            │
+ │  (list of all tags)      │
+ │  ["pharmacy","doctor",..]│
+ └──────────────────────────┘
+            │
+            ▼
+ ┌──────────────────────────┐
+ │ intents.json             │
+ │  {                       │
+ │   "tag": "pharmacy",     │
+ │   "responses": [...]     │
+ │  }                       │
+ └──────────────────────────┘
+            │
+            ▼
+   "Can I provide nearest pharmacy details ?"
+            │
+            ▼
+        Chatbot Reply
