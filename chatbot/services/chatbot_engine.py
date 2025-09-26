@@ -2,9 +2,13 @@ import os
 import random
 import pickle
 import json
+import inspect
 
 from chatbot.registry import INTENT_REGISTRY
 import chatbot.handlers  # noqa: F401
+from chatbot.services.redis_client import (
+    clear_last_intent, get_last_intent, set_last_intent
+)
 
 model = None
 vectorizer = None
@@ -26,38 +30,66 @@ def load_artifacts():
             intents = json.load(f)
 
 
-def get_response(user_input: str):
+def get_response(
+        user_input: str,
+        user_id: str = "default", lat=None, lng=None):
     load_artifacts()
 
+    # 1. Check follow-up
+    last_intent = get_last_intent(user_id)
+    if last_intent:
+        for intent in intents["intents"]:
+            if intent["tag"] == last_intent:
+                followup = intent.get("followup", {})
+                if user_input.lower() in followup:
+                    next_tag = followup[user_input.lower()]
+                    return respond_with_intent(
+                        next_tag, user_id, user_input, lat, lng
+                    )
+                break
+
+    # 2. Predict intent normally
     X = vectorizer.transform([user_input])
     predicted_tag = model.predict(X)[0]
 
-    print("Predicted tag:", predicted_tag)
-    print("Registry now has:", INTENT_REGISTRY)
+    return respond_with_intent(predicted_tag, user_id, user_input, lat, lng)
 
+
+def respond_with_intent(
+        tag: str, user_id: str,
+        user_input: str, lat=None, lng=None):
     response_data = {"response": "", "suggestions": []}
 
-    # Case 1: Handler-based response
-    if predicted_tag in INTENT_REGISTRY:
-        handler = INTENT_REGISTRY[predicted_tag]
-        response_data["response"] = handler(user_input)
+    if tag in INTENT_REGISTRY:
+        handler = INTENT_REGISTRY[tag]
 
-        # add next-step suggestions from intents.json
-        for intent in intents["intents"]:
-            if intent["tag"] == predicted_tag:
-                response_data["suggestions"] = intent.get("suggestions", [])
-                break
+        # Inspect handler parameters
+        sig = inspect.signature(handler)
+        params = sig.parameters
+
+        kwargs = {}
+        if "lat" in params and "lng" in params:
+            kwargs["lat"] = lat
+            kwargs["lng"] = lng
+        
+        print("user_id", user_id)
+
+        # ✅ Pass actual user input
+        response_data["response"] = handler(user_input, **kwargs)
         return response_data
 
-    # Case 2: Static intents.json response
+    # fallback to static intents.json
     for intent in intents["intents"]:
-        if intent["tag"] == predicted_tag:
+        if intent["tag"] == tag:
             response_data["response"] = random.choice(intent["responses"])
             response_data["suggestions"] = intent.get("suggestions", [])
+            if "followup" in intent:
+                set_last_intent(user_id, tag)
+            else:
+                clear_last_intent(user_id)
             return response_data
 
-    # Case 3: fallback
-    return {
-        "response": "Sorry, I didn't understand that. Can you rephrase?",
-        "suggestions": []
-    }
+    return {"response": "Sorry, I didn't understand that.", "suggestions": []}
+
+
+

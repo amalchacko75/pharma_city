@@ -9,6 +9,9 @@ def chatbot_api(request):
     if request.method == "POST":
         data = json.loads(request.body)
         user_message = data.get("message", "")
-        response = get_response(user_message)
+        lat = data.get("lat")
+        lng = data.get("lng")
+        user_id = str(request.session.session_key or "default")
+        response = get_response(user_message, user_id, lat, lng)
         return JsonResponse({"response_data": response})
     return JsonResponse({"error": "POST request required"}, status=400)

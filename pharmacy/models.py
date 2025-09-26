@@ -113,3 +113,34 @@ class Dispensation(models.Model):
     batch = models.ForeignKey(
         InventoryBatch, null=True, blank=True, on_delete=models.SET_NULL
     )
+
+
+class Pharmacy(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+
+    city = models.ForeignKey(
+        "core.City", on_delete=models.CASCADE,
+        related_name="pharmacies"
+    )
+
+    # Coordinates
+    latitude = models.DecimalField(
+        max_digits=9, decimal_places=6, blank=True, null=True
+    )
+    longitude = models.DecimalField(
+        max_digits=9, decimal_places=6, blank=True, null=True
+    )
+
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    open_hours = models.CharField(max_length=255, blank=True, null=True)
+    is_24x7 = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.name} ({self.city})"
+
+    def get_coordinates(self):
+        if self.latitude and self.longitude:
+            return (float(self.latitude), float(self.longitude))
+        return None

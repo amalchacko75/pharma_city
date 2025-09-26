@@ -43,6 +43,15 @@
       ]
     },
     {
+        "tag": "pharmacy_details",
+        "patterns": [
+          "Check nearby pharmacy",
+          "Show drug availability",
+          "Talk to a doctor"
+        ],
+        "responses":["Checking nearest pharamacy for you..."]
+    },
+    {
       "tag": "drug_info",
       "patterns": [
         "What drugs are available?",

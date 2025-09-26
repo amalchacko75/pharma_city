@@ -1,11 +1,12 @@
 from chatbot.constant import SYMPTOM_TO_TYPE
 from chatbot.registry import register_intent
-from pharmacy.models import Drug
+from pharmacy.models import Drug, Pharmacy
 from rapidfuzz import process  # commonly used to match string contents.
+from core.common import haversine
 
 
 @register_intent("drug_info")
-def get_pharmacy_info(user_input: str):
+def get_drug_info(user_input: str):
     """Return available drugs dynamically from DB."""
     drugs = Drug.objects.all()[:5]
     if not drugs:
@@ -33,6 +34,7 @@ def check_drug_availability(user_input: str):
 def suggest_drug_for_symptom(user_input: str):
     """Suggest drugs based on symptoms and show availability."""
     normalized = user_input.lower().split()
+    print("normalized:-", normalized)
 
     matches = []  # (drug_type, score)
     for word in normalized:
@@ -86,3 +88,36 @@ def check_drug_usage(user_input: str):
             return f" {drug.name} is commonly used for {drug.formulation}"
 
     return "❌ Sorry, that drug is not currently available in our store."
+
+
+@register_intent("pharmacy_details")
+def get_pharmacy_info(user_input: str, lat=None, lng=None, unit="km"):
+    """Return nearest pharmacies with distance included."""
+    if lat is None or lng is None:
+        return "📍 Please share your location so I can show nearby pharmacies."
+
+    pharmacies = list(Pharmacy.objects.all())
+    if not pharmacies:
+        return "❌ Sorry, no pharmacies found."
+
+    # Calculate distance for each pharmacy
+    nearby = []
+    for p in pharmacies:
+        distance = haversine(float(lat), float(lng), float(p.latitude), float(p.longitude), unit)
+        nearby.append((p, distance))
+
+    # Sort by distance
+    nearby.sort(key=lambda x: x[1])
+
+    # Get top 3
+    nearest = nearby[:3]
+    response_lines = []
+    for p, d in nearest:
+        google_maps_url = (
+            f"https://www.google.com/maps?q={p.latitude},{p.longitude}"
+        )
+        response_lines.append(
+            f"🏥 {p.name} - {d:.2f} {unit} away 👉{google_maps_url})"
+        )
+
+    return "Here are the nearest pharmacies:\n" + "\n".join(response_lines)
