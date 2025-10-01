@@ -9,5 +9,7 @@ redis>=5.0.0
 django-redis>=5.4.0
 psutil>=6.0
 gunicorn
+django-cors-headers
+
 
 
