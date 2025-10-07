@@ -26,9 +26,6 @@ SECRET_KEY = 'django-insecure-l4el%gp5*p1hmbuz\
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["api.pharmacityassist.online", "localhost", "127.0.0.1"]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -132,7 +129,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -141,6 +139,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # project/settings.py
 # AUTH_USER_MODEL = "accounts.User"
+
+ALLOWED_HOSTS = [
+    "api.pharmacityassist.online",
+    "localhost", "127.0.0.1", '0.0.0.0'
+]
 
 CORS_ALLOWED_ORIGINS = [
     "https://pharmacity-two.vercel.app",
