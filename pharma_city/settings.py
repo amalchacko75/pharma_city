@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-l4el%gp5*p1hmbuz\
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0"]
+ALLOWED_HOSTS = ["api.pharmacityassist.online", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -144,4 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "https://pharmacity-two.vercel.app",
+    "https://api.pharmacityassist.online",
 ]
