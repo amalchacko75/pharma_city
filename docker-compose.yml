@@ -24,26 +24,36 @@ services:
     ports:
       - "5050:80"
 
-  web:
-    build: .
-    container_name: pharmacy_web
-    command: >
-      sh -c "python manage.py makemigrations &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-      - redis
-  
   redis:
     image: redis:7
     container_name: pharmacy_redis
     ports:
       - "6379:6379"
+
+  web:
+    build: .
+    container_name: pharmacy_web
+    command: gunicorn pharma_city.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    expose:
+      - "8000"
+    depends_on:
+      - db
+      - redis
+  
+  nginx:
+    image: nginx:latest
+    container_name: pharmacy_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./static:/app/static
+      - ./media:/app/media
+    depends_on:
+      - web
+  
 
 volumes:
   postgres_data:

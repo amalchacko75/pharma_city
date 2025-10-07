@@ -18,6 +18,8 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
-# Run Django server
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "pharma_city.wsgi:application"]
+# Collect static files for Nginx
+RUN python manage.py collectstatic --noinput
+
+CMD ["gunicorn", "pharma_city.wsgi:application", "--bind", "0.0.0.0:8000"]
 
