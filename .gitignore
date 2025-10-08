@@ -48,3 +48,12 @@ Thumbs.db
 # Migrations (ignore all except __init__.py)
 */migrations/*
 !*/migrations/__init__.py
+
+*.js
+*.css
+*.svg
+*.pkl
+*.txt
+*.md
+
+

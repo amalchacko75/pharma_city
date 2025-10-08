@@ -48,15 +48,17 @@ services:
   nginx:
     image: nginx:latest
     container_name: pharmacy_nginx
+    restart: always
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./static:/app/static
       - ./media:/app/media
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - web
-  
 
 volumes:
   postgres_data:
