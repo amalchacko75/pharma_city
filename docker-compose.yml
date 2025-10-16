@@ -34,7 +34,6 @@ services:
     build: .
     container_name: pharmacy_web
     command: gunicorn pharma_city.wsgi:application --bind 0.0.0.0:8000
-    # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:

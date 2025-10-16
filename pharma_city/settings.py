@@ -142,11 +142,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = [
     "api.pharmacityassist.online",
-    "localhost", "127.0.0.1", '0.0.0.0'
+    "localhost", "127.0.0.1", '0.0.0.0', '54.87.4.226'
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://app.pharmacityassist.online",
+    "https://app.pharmacityassist.online/",
     "https://api.pharmacityassist.online",
 ]
 
