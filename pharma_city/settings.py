@@ -146,6 +146,11 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://pharmacity-two.vercel.app",
+    "https://app.pharmacityassist.online",
+    "https://api.pharmacityassist.online",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://pharmacityassist.online",
     "https://api.pharmacityassist.online",
 ]

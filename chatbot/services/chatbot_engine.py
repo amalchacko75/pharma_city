@@ -90,6 +90,3 @@ def respond_with_intent(
             return response_data
 
     return {"response": "Sorry, I didn't understand that.", "suggestions": []}
-
-
-
