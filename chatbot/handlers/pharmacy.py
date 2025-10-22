@@ -14,7 +14,7 @@ def get_drug_info(user_input: str):
     return "Available drugs: " + ", ".join(d.name for d in drugs)
 
 
-@register_intent("drug_query")
+@register_intent("drug_exist_check")
 def check_drug_availability(user_input: str):
     """Check if a particular drug is available in the store."""
     normalized = user_input.lower()

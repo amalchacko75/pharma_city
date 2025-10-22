@@ -20,7 +20,10 @@
     },
     {
       "tag": "billing",
-      "patterns": ["What is my bill?", "Show invoice", "How much do I owe?"],
+      "patterns": [
+        "What is my bill?", "Show invoice", "How much do I owe?",
+        "show me the latest billing.", "i want my latest billing details"
+      ],
       "responses": ["Please provide your patient ID to fetch the billing details."],
       "suggestions": [
         "Pay bill online",
@@ -62,13 +65,17 @@
       "responses": ["Checking available drugs for you..."]
     },
     {
-      "tag": "drug_query",
+      "tag": "drug_exist_check",
       "patterns": [
         "Do you have paracetamol?",
         "Is ibuprofen available?",
         "Can I buy azithromycin?",
         "Do you sell aspirin?",
-        "Is metformin in stock?"
+        "Is metformin in stock?",
+        "Can I buy azithromycin?",
+        "Do you sell aspirin?",
+        "Where can i get azithromycin ?",
+        "Do you stock azithromycin ?"
       ],
       "responses": ["Let me check if that drug is available..."]
     },
