@@ -26,6 +26,17 @@ class AdminUser(AbstractBaseUser,
 
     objects = AdminUserManager()
 
+    groups = models.ManyToManyField(
+        "auth.Group",
+        related_name="admin_users",
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        "auth.Permission",
+        related_name="admin_users",
+        blank=True
+    )
+
     def __str__(self):
         """
         Display the AdminUser as 'name (role)' in dropdowns and admin lists.

@@ -31,6 +31,7 @@ class AdminUserLoginSerializer(serializers.Serializer):
         email = attrs.get('email')
         password = attrs.get('password')
         user = authenticate(email=email, password=password)
+        print(user)
 
         if not user:
             raise serializers.ValidationError("Invalid credentials")

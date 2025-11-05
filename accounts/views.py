@@ -6,6 +6,7 @@ from accounts.serializer import (
     AdminUserSignupSerializer, AdminUserLoginSerializer
 )
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 
 
 def get_tokens_for_user(user):
@@ -17,6 +18,8 @@ def get_tokens_for_user(user):
 
 
 class AdminSignupView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = AdminUserSignupSerializer(data=request.data)
         if serializer.is_valid():
@@ -29,6 +32,9 @@ class AdminSignupView(APIView):
 
 
 class AdminLoginView(APIView):
+
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = AdminUserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

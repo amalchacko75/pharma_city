@@ -10,7 +10,7 @@ class Invoice(AuditMixin):
         primary_key=True, default=uuid.uuid4, editable=False
     )
     patient = models.ForeignKey(
-        "patients.Patient", on_delete=models.CASCADE
+        "accounts.AdminUser", on_delete=models.CASCADE
     )
     total_amount = models.DecimalField(
         max_digits=12, decimal_places=2

@@ -113,6 +113,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'common.backends.AdminUserBackend',  # for AdminUser
+
+    'django.contrib.auth.backends.ModelBackend',  # fallback
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -139,19 +145,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # project/settings.py
 AUTH_USER_MODEL = 'accounts.AdminUser'
+# AUTH_USER_MODELS = {
+#     "admin": "accounts.AdminUser"
+# }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 
 ALLOWED_HOSTS = [
     "api.pharmacityassist.online",
-    "localhost", "127.0.0.1", '0.0.0.0', 'http://192.168.1.77:3000', 'http://localhost:3000/',
+    "localhost", "127.0.0.1", '0.0.0.0',
+    'http://192.168.1.77:3000', 'http://localhost:3000/'
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "https://app.pharmacityassist.online",
-    "https://api.pharmacityassist.online", 'http://192.168.1.77:3000', 'http://localhost:3000/'
+    "https://api.pharmacityassist.online",
+    'http://192.168.1.77:3000',
+    'http://localhost:3000'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://pharmacityassist.online",
-    "https://api.pharmacityassist.online", 'http://192.168.1.77:3000', 'http://localhost:3000/'
+    "https://api.pharmacityassist.online",
+    'http://192.168.1.77:3000', 'http://localhost:3000/'
 ]
